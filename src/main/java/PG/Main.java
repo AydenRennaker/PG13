@@ -24,21 +24,21 @@ public class Main extends Plugin {
 
     public Main() throws InterruptedException {
         try {
-            String pureJson = Core.settings.getDataDirectory().child("mods/settings.json").readString();
+            String pureJson = Core.settings.getDataDirectory().child("mods/chatFilter.json").readString();
             adata = new JSONObject(new JSONTokener(pureJson));
             if (!adata.has("badList")){
                 Log.err("============");
                 Log.err("ERROR - 404");
-                Log.err("settings.json missing badList");
-                Log.err("Make sure settings.json is properly setup");
+                Log.err("chatFilter.json missing badList");
+                Log.err("Make sure chatFilter.json is properly setup");
                 Log.err("============");
                 return;
             } else {
                 badList = adata.getJSONObject("badList");
             }
         } catch (Exception e) {
-            if (e.getMessage().contains("File not found: config\\mods\\settings.json")){
-                Log.err("PG: settings.json file is missing.");
+            if (e.getMessage().contains("File not found: config\\mods\\chatFilter.json")){
+                Log.err("PG: chatFilter.json file is missing.");
                 return;
             } else {
                 Log.err("PG: Error reading JSON.");
@@ -68,7 +68,7 @@ public class Main extends Plugin {
                 badlist.put(arg[0], "bad");
             }
             try {
-                File file = new File("config\\mods\\settings.json");
+                File file = new File("config\\mods\\chatFilter.json");
                 FileWriter out = new FileWriter(file, false);
                 PrintWriter pw = new PrintWriter(out);
                 pw.println(adata.toString(4));
@@ -86,7 +86,7 @@ public class Main extends Plugin {
                 badlist.remove(arg[0]);
             }
             try {
-                File file = new File("config\\mods\\settings.json");
+                File file = new File("config\\mods\\chatFilter.json");
                 FileWriter out = new FileWriter(file, false);
                 PrintWriter pw = new PrintWriter(out);
                 pw.println(adata.toString());
